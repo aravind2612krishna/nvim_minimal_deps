@@ -5,7 +5,7 @@ MEnabled = {
     event = "InsertEnter",
     lazy = false, -- lazy loading handled internally
     -- optional: provides snippets for the snippet source
-    dependencies = "rafamadriz/friendly-snippets",
+    -- dependencies = "rafamadriz/friendly-snippets",
 
     -- use a release tag to download pre-built binaries
     version = "v1.*",
@@ -53,7 +53,7 @@ MEnabled = {
         sorts = { "score", "sort_text", "exact" },
         use_frecency = true,
         use_proximity = true,
-        implementation = "rust",
+        implementation = "prefer_rust",
       },
       completion = {
         list = {

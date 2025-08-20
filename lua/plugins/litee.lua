@@ -4,7 +4,6 @@ return {
 		dependencies = {
 			{
 				"ldelossa/litee.nvim",
-				event = "VeryLazy",
 				opts = {
 					notify = { enabled = false },
 					panel = {
@@ -17,7 +16,6 @@ return {
 				end,
 			},
 		},
-		event = "VeryLazy",
 		keys = {
 			{
 				"<Leader>ct",

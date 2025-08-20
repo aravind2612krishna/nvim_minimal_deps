@@ -6,11 +6,9 @@ return {
 	},
 
 	config = function()
-		local lspconfig = require("lspconfig")
 		local mason = require("mason")
 
 		mason.setup()
-		lspconfig.setup()
 		vim.lsp.config("clangd", {
 			cmd = {
 				"clangd",

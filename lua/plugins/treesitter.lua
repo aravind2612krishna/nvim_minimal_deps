@@ -15,7 +15,6 @@ return {
         "python",
         -- add more arguments for adding more treesitter parsers
       })
-      opts.indent.enable = false
       opts.highlight = { enable = false }
     end,
   },
