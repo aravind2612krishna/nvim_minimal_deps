@@ -7,37 +7,37 @@ return {
 		keys = {
 		    {
 		        "<leader>ff",
-		        require("telescope.builtin").find_files,
+		        function() require("telescope.builtin").find_files() end,
 		        mode = "n",
 		        desc = "Pick files",
 		    },
 		    {
 		        "<leader>fb",
-		        require("telescope.builtin").buffers,
+		        function() require("telescope.builtin").buffers()  end,
 		        mode = "n",
 		        desc = "Pick buffers",
 		    },
 		    {
 		        "<leader>fr",
-		        require("telescope.builtin").resume,
+		        function() require("telescope.builtin").resume() end,
 		        mode = "n",
 		        desc = "Resume picker",
 		    },
 		    {
 		        "<leader>fk",
-		        require("telescope.builtin").keymaps,
+		        function() require("telescope.builtin").keymaps() end,
 		        mode = "n",
 		        desc = "Pick keymaps",
 		    },
 		    {
 		        "<leader>fl",
-		        require("telescope.builtin").current_buffer_fuzzy_find,
+		        function() require("telescope.builtin").current_buffer_fuzzy_find() end,
 		        mode = "n",
 		        desc = "Find lines",
 		    },
 		    {
 		        "<leader>fs",
-		        require("telescope.builtin").lsp_workspace_symbols,
+		        function() require("telescope.builtin").lsp_workspace_symbols() end,
 		        mode = "n",
 		        desc = "Pick lsp symbols",
 		    },

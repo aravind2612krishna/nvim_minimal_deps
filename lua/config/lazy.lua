@@ -53,7 +53,9 @@ vim.opt.scrolloff = 4                                  -- 4 lines minimum above 
 vim.opt.inccommand = "nosplit"                         -- Shows the effects of a command incrementally in the buffer
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Directory for undo files
 vim.opt.undofile = true                                -- Enable persistent undo
-vim.opt.winborder = "rounded"                          -- Use rounded borders for windows
+if vim.fn.has("nvim-0.12") == 1 then
+  vim.opt.winborder = "rounded"                          -- Use rounded borders for windows
+end
 
 vim.cmd.filetype("plugin indent on")                   -- Enable filetype detection, plugins, and indentation
 
