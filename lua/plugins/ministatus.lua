@@ -1,6 +1,8 @@
 return {
 	{
 		"bluz71/nvim-linefly",
+		lazy = false,
+		-- priority = 500,
 		config = function()
 			vim.g.linefly_options = {
 				separator_symbol = "⎪",
