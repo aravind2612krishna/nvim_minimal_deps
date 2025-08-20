@@ -48,6 +48,7 @@ vim.opt.sessionoptions = { "buffers", "curdir", "tabpages" } -- store these in m
 vim.opt.clipboard = "unnamedplus"                            -- clipboard to vim yank
 vim.opt.shortmess:append("c")
 vim.opt.diffopt = { "context:99999", "filler", "algorithm:patience" }
+vim.opt.diffanchors = "'a"
 vim.opt.list = true                                    -- Show whitespace characters
 vim.opt.scrolloff = 4                                  -- 4 lines minimum above or below cursor
 vim.opt.inccommand = "nosplit"                         -- Shows the effects of a command incrementally in the buffer
@@ -66,6 +67,8 @@ vim.keymap.set("n", "<C-h>", "<C-W>h", { remap = true, desc = "Pane left" })
 vim.keymap.set("n", "<C-j>", "<C-W>j", { remap = true, desc = "Pane down" })
 vim.keymap.set("n", "<C-k>", "<C-W>k", { remap = true, desc = "Pane up" })
 vim.keymap.set("n", "<C-l>", "<C-W>l", { remap = true, desc = "Pane right" })
+vim.keymap.set("n", "<leader>[", "<cmd>tabprev<CR>", { remap = true, desc = "Tab previous" })
+vim.keymap.set("n", "<leader>]", "<cmd>tabnext<CR>", { remap = true, desc = "Tab next" })
 
 -- maps relative to current file
 vim.keymap.set(

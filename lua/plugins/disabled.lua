@@ -31,5 +31,5 @@ return {
   { "b0o/incline.nvim", enabled = false },
   { "mrjones2014/smart-splits.nvim", enabled = false },
   { "stevearc/quicker.nvim", enabled = false },
-  { "tanvirtin/vgit.nvim", enabled = false },
+  -- { "tanvirtin/vgit.nvim", enabled = false },
 }

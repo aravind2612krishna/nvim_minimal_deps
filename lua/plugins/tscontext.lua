@@ -1,6 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter-context",
-  command = "TSContext",
+  cmd = "TSContext",
   opts = {
     throttle = true, -- Throttles plugin updates (may improve performance)
     max_lines = 4, -- How many lines the window should span. Values <= 0 mean no limit.
