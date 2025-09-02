@@ -4,6 +4,7 @@ return {
         "aravind2612krishna/aravk_nvim_utils",
         dependencies = {
             "linrongbin16/gitlinker.nvim",
+            "nvim-treesitter/nvim-treesitter",
         },
         keys = {
             {
