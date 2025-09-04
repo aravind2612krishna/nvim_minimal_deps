@@ -51,40 +51,84 @@ vim.opt.diffanchors = "'a"
 vim.opt.list = true                                    -- Show whitespace characters
 vim.opt.scrolloff = 4                                  -- 4 lines minimum above or below cursor
 vim.opt.inccommand = "nosplit"                         -- Shows the effects of a command incrementally in the buffer
+vim.opt.splitright = true
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Directory for undo files
 vim.opt.undofile = true                                -- Enable persistent undo
 if vim.fn.has("nvim-0.12") == 1 then
     vim.opt.winborder = "rounded"                          -- Use rounded borders for windows
 end
 
--- vim.opt.foldnestmax = 1                                      -- only fold outer level
--- vim.opt.foldmethod = "indent"                                -- fold by indent by default
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = "v:lua.AravkMidMeshFold()"
+vim.opt.foldnestmax = 1       -- only fold outer level
+vim.opt.foldmethod = "indent" -- fold by indent by default
+vim.api.nvim_create_augroup("C_Folding", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    group = "C_Folding",
+    pattern = { "cpp", "c", "h", "hpp" },
+    callback = function()
+        vim.opt_local.foldmethod = "expr"
+        vim.opt_local.foldexpr = "v:lua.AravkCFold()"
+        vim.opt_local.foldnestmax = 10
+    end,
+})
 
-G_foldnest = 0
+G_foldHashIf = 0
+G_foldIndent = 0
+
+function _G.AravkCFold()
+    local lnum = vim.v.lnum
+    if lnum == 1 then
+        G_foldHashIf = 0
+        G_foldIndent = 0
+    end
+    local line = vim.fn.getline(lnum)
+    local foldlevel = 0
+    if not line:match("^%s*$") then
+        if line:match("^#if") or line:match("^{") then
+            G_foldHashIf = G_foldHashIf + 1
+        elseif line:match("^#endif") or line:match("^}") and G_foldHashIf > 0 then
+            G_foldHashIf = G_foldHashIf - 1
+            foldlevel = 1
+        end
+    end
+    foldlevel = foldlevel + G_foldIndent + G_foldHashIf
+    -- local buf = vim.api.nvim_get_current_buf()
+    -- vim.api.nvim_buf_set_extmark(buf, G_ns, lnum - 1, 0, {
+    --     virt_text = { { tostring(G_foldHashIf) .. "," .. tostring(G_foldIndent), "Comment" } },
+    --     virt_text_pos = "eol",
+    -- })
+    return tostring(foldlevel)
+end
+
+-- G_ns = vim.api.nvim_create_namespace("foldlevel_debug")
 function _G.AravkMidMeshFold()
     local lnum = vim.v.lnum
     if lnum == 0 then
-        G_foldnest = 0
+        G_foldHashIf = 0
+        G_foldIndent = 0
     end
     local line = vim.fn.getline(lnum)
-    if line:match("^%s*$") then
-      return "="
+    local foldlevel = 0
+    if not line:match("^%s*$") then
+        if line:match("^#if") then
+            G_foldHashIf = G_foldHashIf + 1
+        elseif line:match("^#endif") and G_foldHashIf > 0 then
+            G_foldHashIf = G_foldHashIf - 1
+            foldlevel = 1
+        elseif G_foldHashIf == 0 then
+            local indent = vim.fn.indent(lnum)
+            if indent > 0 then
+                G_foldIndent = 1
+            else
+                G_foldIndent = 0
+            end
+        end
     end
-    if line:match("^#if") then
-        G_foldnest = G_foldnest + 1
-        return "a1"
-    end
-    if line:match("^#endif") and G_foldnest > 0 then
-        G_foldnest = G_foldnest - 1
-        return "s1"
-    end
-    local indent = vim.fn.indent(lnum)
-    if indent > 0 then
-        indent = 1
-    end
-    local foldlevel = indent + G_foldnest
+    foldlevel = foldlevel + G_foldIndent + G_foldHashIf
+    -- local buf = vim.api.nvim_get_current_buf()
+    -- vim.api.nvim_buf_set_extmark(buf, G_ns, lnum - 1, 0, {
+    --     virt_text = { { tostring(G_foldHashIf) .. "," .. tostring(G_foldIndent), "Comment" } },
+    --     virt_text_pos = "eol",
+    -- })
     return tostring(foldlevel)
 end
 
@@ -96,11 +140,10 @@ vim.keymap.set("i", "jj", "<Esc>", { desc = "jj is easier to reach than Escape" 
 vim.keymap.set("n", "<C-h>", "<C-W>h", { remap = true, desc = "Pane left" })
 vim.keymap.set("n", "<C-j>", "<C-W>j", { remap = true, desc = "Pane down" })
 vim.keymap.set("n", "<C-k>", "<C-W>k", { remap = true, desc = "Pane up" })
-vim.keymap.set("n", "<leader>j", "<C-W>l", { remap = true, desc = "Pane right" })
-vim.keymap.set("n", "<leader>h", "<C-W>h", { remap = true, desc = "Pane left" })
-vim.keymap.set("n", "<leader>j", "<C-W>j", { remap = true, desc = "Pane down" })
-vim.keymap.set("n", "<leader>k", "<C-W>k", { remap = true, desc = "Pane up" })
-vim.keymap.set("n", "<leader>l", "<C-W>l", { remap = true, desc = "Pane right" })
+vim.keymap.set({"n"}, "<leader>h", "<C-W>h", { remap = true, desc = "Pane left" })
+vim.keymap.set({"n"}, "<leader>j", "<C-W>j", { remap = true, desc = "Pane down" })
+vim.keymap.set({"n"}, "<leader>k", "<C-W>k", { remap = true, desc = "Pane up" })
+vim.keymap.set({"n"}, "<leader>l", "<C-W>l", { remap = true, desc = "Pane right" })
 vim.keymap.set("n", "<leader>[", "<cmd>tabprev<CR>", { remap = true, desc = "Tab previous" })
 vim.keymap.set("n", "<leader>]", "<cmd>tabnext<CR>", { remap = true, desc = "Tab next" })
 vim.keymap.set("n", "]e", function() vim.diagnostic.jump({count=1, wrap=false, severity=vim.diagnostic.severity.ERROR}) end, {remap = true, desc = "Next error"})
