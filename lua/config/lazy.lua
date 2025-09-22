@@ -47,7 +47,6 @@ vim.opt.sessionoptions = { "buffers", "curdir", "tabpages" } -- store these in m
 vim.opt.clipboard = "unnamedplus"                            -- clipboard to vim yank
 vim.opt.shortmess:append("c")
 vim.opt.diffopt = { "context:99999", "filler", "algorithm:patience" }
-vim.opt.diffanchors = "'a"
 vim.opt.list = true                                    -- Show whitespace characters
 vim.opt.scrolloff = 4                                  -- 4 lines minimum above or below cursor
 vim.opt.inccommand = "nosplit"                         -- Shows the effects of a command incrementally in the buffer
