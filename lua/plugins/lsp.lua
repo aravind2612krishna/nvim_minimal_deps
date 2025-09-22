@@ -29,6 +29,8 @@ return {
                                 "--completion-style=detailed",
                                 "--function-arg-placeholders",
                                 "--include-ineligible-results",
+                                "--limit-results=100000",
+                                "--limit-references=10000",
                             },
                             init_options = {
                                 usePlaceholders = true,

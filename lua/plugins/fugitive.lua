@@ -1,6 +1,6 @@
 return {
   {
     "tpope/vim-fugitive",
-    cmd = { "G", "Gvdiffsplit" },
+    cmd = { "G", "Gvdiffsplit", "Gw" },
   },
 }

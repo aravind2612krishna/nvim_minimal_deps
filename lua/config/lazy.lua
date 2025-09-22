@@ -69,6 +69,10 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.foldnestmax = 10
     end,
 })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"TelescopeResults", "TelescopePrompt", "TelescopePreview"},
+    command = "setlocal nofoldenable"
+})
 
 G_foldHashIf = 0
 G_foldIndent = 0
