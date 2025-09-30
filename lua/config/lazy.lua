@@ -57,8 +57,8 @@ if vim.fn.has("nvim-0.12") == 1 then
     vim.opt.winborder = "rounded"                          -- Use rounded borders for windows
 end
 
-vim.opt.foldnestmax = 1       -- only fold outer level
-vim.opt.foldmethod = "indent" -- fold by indent by default
+-- vim.opt.foldnestmax = 1       -- only fold outer level
+vim.opt.foldmethod = "marker" -- fold by indent by default
 vim.api.nvim_create_augroup("C_Folding", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     group = "C_Folding",
@@ -153,6 +153,7 @@ vim.keymap.set("n", "]e", function() vim.diagnostic.jump({count=1, wrap=false, s
 vim.keymap.set("n", "[e", function() vim.diagnostic.jump({count=-1, wrap=false, severity=vim.diagnostic.severity.ERROR}) end, {remap = true, desc = "Next error"})
 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, {remap = true, desc = "Go to definition"})
 vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, {remap = true, desc = "Go to declaration"})
+
 
 -- maps relative to current file
 vim.keymap.set(
