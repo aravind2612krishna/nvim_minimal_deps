@@ -28,7 +28,7 @@ return {
   { "folke/which-key.nvim", optional = true, enabled = false },
   { "windwp/nvim-autopairs", enabled = false },
   -- { "kevinhwang91/nvim-ufo", enabled = false },
-  { "b0o/incline.nvim", enabled = false },
+  -- { "b0o/incline.nvim", enabled = false },
   { "mrjones2014/smart-splits.nvim", enabled = false },
   { "stevearc/quicker.nvim", enabled = false },
   -- { "tanvirtin/vgit.nvim", enabled = false },

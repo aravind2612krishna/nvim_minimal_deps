@@ -51,7 +51,6 @@ MEnabled = {
       },
       fuzzy = {
         sorts = { "score", "sort_text", "exact" },
-        use_frecency = true,
         use_proximity = true,
         implementation = "prefer_rust",
       },
