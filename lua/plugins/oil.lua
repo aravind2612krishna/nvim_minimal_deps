@@ -1,7 +1,11 @@
 return {
     {
         "A7Lavinraj/fyler.nvim",
-        event = "VeryLazy",
+        -- event = "VeryLazy",
+        commands = "Fyler",
+        keys = {
+            { "<Leader>fe", "<cmd>Fyler kind=float<cr>", mode = { "n", "v" }, desc = "Fyler float" },
+        },
         dependencies = { "nvim-mini/mini.icons" },
         branch = "stable",
         opts = {
