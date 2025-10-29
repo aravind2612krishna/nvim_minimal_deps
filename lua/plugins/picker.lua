@@ -54,7 +54,7 @@ return {
         opts = {},
         keys = {
             {
-                "<leader>fg",
+                "<leader>ff",
                 function()
                     require("fzf-lua").global()
                 end,

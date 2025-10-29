@@ -4,13 +4,17 @@ return {
         -- event = "VeryLazy",
         commands = "Fyler",
         keys = {
-            { "<Leader>fe", "<cmd>Fyler kind=float<cr>", mode = { "n", "v" }, desc = "Fyler float" },
+            { "<Leader>fe", "<cmd>Fyler kind=split_left_most<cr>", mode = { "n", "v" }, desc = "Fyler" },
         },
         dependencies = { "nvim-mini/mini.icons" },
         branch = "stable",
         opts = {
             default_explorer = false,
-        }
+            close_on_select = false,
+        },
+        config = function (_, opts)
+            require("fyler").setup(opts)
+        end,
     },
     {
       "stevearc/oil.nvim",

@@ -21,6 +21,7 @@ return {
                         vim.lsp.config("clangd", {
                             cmd = {
                                 "clangd",
+                                "--query-driver=/usr/bin/g++",
                                 "--background-index",
                                 "-j=10",
                                 "--clang-tidy",
