@@ -42,7 +42,8 @@ return {
             opts.auto_install = vim.fn.executable "tree-sitter" == 1
             opts.highlight = { enable = true }
             opts.incremental_selection = { enable = true }
-            opts.indent = { enable = false }
+            opts.indent = { enable = true }
+            opts.folding = { enable = true }
             opts.textobjects = {
                 select = {
                     enable = true,
@@ -71,6 +72,7 @@ return {
         end,
         config = function (_, opts)
             require 'nvim-treesitter.configs'.setup(opts)
+            -- Setup autocmds for folding
         end
     },
 }

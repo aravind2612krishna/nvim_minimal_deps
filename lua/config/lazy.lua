@@ -58,14 +58,16 @@ if vim.fn.has("nvim-0.12") == 1 then
 end
 
 -- vim.opt.foldnestmax = 1       -- only fold outer level
-vim.opt.foldmethod = "marker" -- fold by indent by default
+-- vim.opt.foldmethod = "marker" -- fold by indent by default
 vim.api.nvim_create_augroup("C_Folding", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     group = "C_Folding",
-    pattern = { "cpp", "c", "h", "hpp" },
+    pattern = { "cpp", "c", "h", "hpp", "py", "python" },
     callback = function()
         vim.opt_local.foldmethod = "expr"
-        vim.opt_local.foldexpr = "v:lua.AravkCFold()"
+        -- vim.opt_local.foldexpr = "v:lua.AravkCFold()"
+        -- vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
+        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
         vim.opt_local.foldnestmax = 10
     end,
 })

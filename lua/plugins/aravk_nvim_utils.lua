@@ -5,6 +5,7 @@ return {
         dependencies = {
             "linrongbin16/gitlinker.nvim",
             "nvim-treesitter/nvim-treesitter",
+            "nvim-treesitter/nvim-treesitter-textobjects",
         },
         keys = {
             {
@@ -16,10 +17,20 @@ return {
                 mode = "n",
                 desc = "Setup termdebug and start it",
             },
+            {
+                "<Leader>8",
+                function()
+                    local sis = require "aravk_nvim_utils.searchinscope"
+                    sis.search_current_function_word()
+                end,
+                mode = "n",
+                desc = "Search current word in current function scope",
+            },
         },
         cmd = { "CopyContext" },
         config = function(_, opts)
             require("aravk_nvim_utils.smartcodecopy").setup(opts)
+            require("aravk_nvim_utils.searchinscope").setup()
         end
   },
   -- {

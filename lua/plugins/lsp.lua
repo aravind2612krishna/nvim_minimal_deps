@@ -38,6 +38,7 @@ return {
                                 completeUnimported = true,
                                 clangdFileStatus = true,
                             },
+                            root_markers = { "compile_commands.json", ".clangd", ".clang-tidy", ".clang-format", "compile_flags.txt", "configure.ac", ".git" },
                         })
                         vim.lsp.config("lua_ls", {
                             settings = {

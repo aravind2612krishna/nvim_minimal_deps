@@ -1,6 +1,15 @@
 return{
     {
+        "bassamsdata/namu.nvim",
+        cmd = "Namu",
+        opts = {
+            -- Enable symbols navigator which is the default
+            ui_select = { enable = true }, -- vim.ui.select() wrapper
+        }
+    },
+    {
         "retran/meow.yarn.nvim",
+        enabled = true,
         dependencies = { "MunifTanjim/nui.nvim" },
         cmd = "MeowYarn",
         keys = {
