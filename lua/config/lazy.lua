@@ -62,13 +62,15 @@ end
 vim.api.nvim_create_augroup("C_Folding", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     group = "C_Folding",
-    pattern = { "cpp", "c", "h", "hpp", "py", "python" },
+    pattern = { "cpp", "c", "h", "hpp", "py", "python", "sh" },
     callback = function()
-        vim.opt_local.foldmethod = "expr"
-        -- vim.opt_local.foldexpr = "v:lua.AravkCFold()"
-        -- vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
-        vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.opt_local.foldnestmax = 10
+        if not vim.wo.scrollbind then
+            vim.opt_local.foldmethod = "expr"
+            -- vim.opt_local.foldexpr = "v:lua.AravkCFold()"
+            -- vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
+            vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+            vim.opt_local.foldnestmax = 10
+        end
     end,
 })
 vim.api.nvim_create_autocmd("FileType", {
@@ -170,6 +172,16 @@ vim.keymap.set(
     ':tabe <C-R>=expand("%:p:h") . "/" <CR>',
     { remap = true, desc = "Open :tabnew in dir of current file" }
 )
+vim.keymap.set(
+    "n",
+    "<Leader>rr",
+    function()
+        local rgcmd = "rg --vimgrep -i " .. vim.fn.expand("<cword>") .. " " .. vim.fn.expand("%:p:h")
+        -- vim.cmd("cexpr(system(\"" .. rgcmd .. "\"))")
+        vim.fn.feedkeys(":" .. "cexpr(system('" .. rgcmd .. "'))", "n")
+    end,
+    { remap = true, desc = "Grep word under cursor in current file's dir and open quickfix" }
+)
 
 -- Quickfix
 vim.keymap.set("n", "<C-q>", ":cclose<CR>", { remap = true, desc = "Close quickfix" })
@@ -224,3 +236,55 @@ require("lazy").setup({
         enabled = false,
     },
 })
+
+if vim.g.neovide then
+    vim.g.neovide_increment_scale_factor = vim.g.neovide_increment_scale_factor or 0.1
+    vim.g.neovide_min_scale_factor = vim.g.neovide_min_scale_factor or 0.7
+    vim.g.neovide_max_scale_factor = vim.g.neovide_max_scale_factor or 2.0
+    vim.g.neovide_initial_scale_factor = vim.g.neovide_scale_factor or 1
+    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor or 1
+    vim.g.neovide_fullscreen = true
+    vim.g.neovide_remember_window_size = false
+    vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
+
+    -- Scale factor
+    local change_scale_factor = function(delta)
+        vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+    end
+    vim.keymap.set("n", "<C-=>", function()
+        change_scale_factor(1.05)
+    end)
+    vim.keymap.set("n", "<C-->", function()
+        change_scale_factor(1 / 1.05)
+    end)
+
+    -- Helper function for transparency formatting
+    local alpha = function()
+        return string.format("%x", math.floor(255 * vim.g.neovide_opacity_point or 0.8))
+    end
+    -- Set transparency and background color (title bar color)
+    vim.g.neovide_opacity = 1.0
+    vim.g.neovide_opacity_point = 0.8
+    vim.g.neovide_background_color = "#0f1117" .. alpha()
+    -- Add keybinds to change transparency
+    local change_transparency = function(delta)
+        vim.g.neovide_opacity_point = vim.g.neovide_opacity_point + delta
+        vim.g.neovide_background_color = "#0f1117" .. alpha()
+    end
+    vim.keymap.set({ "n", "v", "o" }, "<M-]>", function()
+        change_transparency(0.01)
+    end)
+    vim.keymap.set({ "n", "v", "o" }, "<M-[>", function()
+        change_transparency(-0.01)
+    end)
+
+    vim.g.neovide_floating_corner_radius = 0.5
+
+    vim.g.neovide_floating_blur_amount_x = 2.0
+    vim.g.neovide_floating_blur_amount_y = 2.0
+
+    vim.g.neovide_floating_shadow = true
+    vim.g.neovide_floating_z_height = 10
+    vim.g.neovide_light_angle_degrees = 45
+    vim.g.neovide_light_radius = 5
+end

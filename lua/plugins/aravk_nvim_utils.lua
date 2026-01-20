@@ -30,7 +30,7 @@ return {
         cmd = { "CopyContext" },
         config = function(_, opts)
             require("aravk_nvim_utils.smartcodecopy").setup(opts)
-            require("aravk_nvim_utils.searchinscope").setup()
+            -- require("aravk_nvim_utils.searchinscope").setup()
         end
   },
   -- {

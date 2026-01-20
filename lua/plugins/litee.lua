@@ -39,7 +39,7 @@ return {
             map_resize_keys = false,
         },
         config = function(_, opts)
-            require("litee.lib").setup(opts)
+            -- require("litee.lib").setup(opts)
             require("litee.calltree").setup(opts)
         end,
     },

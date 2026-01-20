@@ -28,7 +28,7 @@ return {
             {
                 "<F10>",
                 function()
-                    require("eap").step_over()
+                    require("dap").step_over()
                 end,
                 mode = "n",
                 desc = "DapStepOver",

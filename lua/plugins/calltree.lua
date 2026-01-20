@@ -25,6 +25,14 @@ return{
         end,
     },
     {
+        'lafarr/hierarchy.nvim',
+        cmd = "FunctionReferences",
+        config = function(_, opts)
+            require('hierarchy').setup(opts)
+        end
+
+    },
+    {
         "jmacadie/telescope-hierarchy.nvim",
         enabled = false,
         dependencies = {

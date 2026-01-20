@@ -49,6 +49,13 @@ return {
                                 }
                             }
                         })
+                        vim.lsp.config("basedpyright", {
+                            settings = {
+                                basedpyright = {
+                                    pythonPath = "/mnt/work/repos/third_party/python/python3.10.18/linux64/bin/python3",
+                                }
+                            }
+                        })
                     end
 
                 end,
