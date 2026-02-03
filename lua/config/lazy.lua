@@ -61,19 +61,6 @@ end
 -- vim.opt.foldmethod = "marker" -- fold by indent by default
 vim.api.nvim_create_augroup("C_Folding", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-    group = "C_Folding",
-    pattern = { "cpp", "c", "h", "hpp", "py", "python", "sh" },
-    callback = function()
-        if not vim.wo.scrollbind then
-            vim.opt_local.foldmethod = "expr"
-            -- vim.opt_local.foldexpr = "v:lua.AravkCFold()"
-            -- vim.opt_local.foldexpr = "v:lua.vim.lsp.foldexpr()"
-            vim.opt_local.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-            vim.opt_local.foldnestmax = 10
-        end
-    end,
-})
-vim.api.nvim_create_autocmd("FileType", {
     pattern = {"TelescopeResults", "TelescopePrompt", "TelescopePreview"},
     command = "setlocal nofoldenable"
 })

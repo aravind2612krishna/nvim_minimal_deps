@@ -1,6 +1,21 @@
 return {
     {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "VeryLazy",
+        priority = 1000,
+        opts = {
+            preset = "powerline",
+            options = {
+                show_source = {
+                    if_many = true,
+                },
+                show_code = true,
+            },
+        },
+    },
+    {
         "caliguIa/zendiagram.nvim",
+        enabled = false,
         opts = {
             header = "Diagnostics", -- Float window title
             source = true,  -- Whether to display diagnostic source
