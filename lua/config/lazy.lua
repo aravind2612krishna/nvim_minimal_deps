@@ -53,6 +53,8 @@ vim.opt.inccommand = "nosplit"                         -- Shows the effects of a
 vim.opt.splitright = true
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Directory for undo files
 vim.opt.undofile = true                                -- Enable persistent undo
+vim.opt.cursorline = true
+vim.opt.foldlevel = 99
 if vim.fn.has("nvim-0.12") == 1 then
     vim.opt.winborder = "rounded"                          -- Use rounded borders for windows
 end

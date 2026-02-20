@@ -20,17 +20,22 @@ return {
         cmd = "CodeDiff",
     },
     {
-        "jake-stewart/diff.nvim",
-        cmd = "Diff",
-        opts = {
-            -- show a unified diff (single pane)
-            unified = false,
-
-            -- either "tab", "above", "below", "left", or "right"
-            position = "below",
-
-            -- show the cursorline within the diff windows
-            cursorline = false
-        }
-    },
+        "lionyxml/gitlineage.nvim",
+        dependencies = {
+            "sindrets/diffview.nvim", -- optional, for open_diff feature
+        },
+        keys = {
+            {
+                "<leader>gh",
+                mode = "v",
+                function ()
+                    require("gitlineage").show_history()
+                end,
+                desc = "Git history for selected lines"
+            }
+        },
+        config = function()
+            require("gitlineage").setup({ keymap = "<leader>gh" })
+        end
+    }
 }

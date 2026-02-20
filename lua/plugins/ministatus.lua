@@ -21,12 +21,15 @@ return {
                 window = {
                     padding = 0,
                     margin = { horizontal = 0 },
+                    placement = {
+                        vertical = "bottom"
+                    }
                 },
                 hide = {
                     cursorline = true,
                 },
                 render = function(props)
-                    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
+                    local filename = vim.api.nvim_buf_get_name(props.buf)
                     if filename == '' then
                         filename = '[No Name]'
                     end

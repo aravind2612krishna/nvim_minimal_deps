@@ -1,4 +1,15 @@
 return {
+-- lazy.nvim
+    {
+      'kungfusheep/mfd.nvim',
+      lazy = false,
+      priority = 1000,
+      enabled = false,
+      config = function()
+        vim.o.background = "light"
+        vim.cmd("colorscheme mfd")
+      end,
+    },
     {
         "oskarnurm/koda.nvim",
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
