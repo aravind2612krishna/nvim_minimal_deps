@@ -10,6 +10,7 @@ return {
                 lazy = true
             },
         },
+        main = "nvim-treesitter.config",
         lazy = vim.fn.argc(-1) == 0, -- load treesitter immediately when opening a file from the cmdline
         cmd = {
             "TSBufDisable",
@@ -71,7 +72,7 @@ return {
             return opts
         end,
         config = function (_, opts)
-            require 'nvim-treesitter.configs'.setup(opts)
+            require 'nvim-treesitter.config'.setup(opts)
             -- Setup autocmds for folding
         end
     },
