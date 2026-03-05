@@ -51,7 +51,7 @@ vim.opt.list = true                                    -- Show whitespace charac
 vim.opt.scrolloff = 4                                  -- 4 lines minimum above or below cursor
 vim.opt.inccommand = "nosplit"                         -- Shows the effects of a command incrementally in the buffer
 vim.opt.splitright = true
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- Directory for undo files
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undodir" -- Directory for undo files
 vim.opt.undofile = true                                -- Enable persistent undo
 vim.opt.cursorline = true
 vim.opt.foldlevel = 99
@@ -234,7 +234,7 @@ if vim.g.neovide then
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor or 1
     vim.g.neovide_fullscreen = true
     vim.g.neovide_remember_window_size = false
-    vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
+    -- vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
 
     -- Scale factor
     local change_scale_factor = function(delta)
@@ -253,7 +253,7 @@ if vim.g.neovide then
     end
     -- Set transparency and background color (title bar color)
     vim.g.neovide_opacity = 1.0
-    vim.g.neovide_opacity_point = 0.8
+    -- vim.g.neovide_opacity_point = 0.8
     vim.g.neovide_background_color = "#0f1117" .. alpha()
     -- Add keybinds to change transparency
     local change_transparency = function(delta)
