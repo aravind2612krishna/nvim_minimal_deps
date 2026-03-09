@@ -15,20 +15,19 @@ return {
                 },
                 config = function()
                     local mason = require("mason")
-
-                    mason.setup()
-                    if vim.fn.has("nvim-0.12") == 1 then
-                        vim.lsp.config("clangd", {
+                    local clangd_opts = {
                             cmd = {
                                 "clangd",
                                 "--query-driver=/usr/bin/g++",
                                 "--background-index",
-                                "-j=10",
+                                "--background-index-priority=background",
+                                "-j=12",
+                                "--log=error",
                                 "--clang-tidy",
                                 "--enable-config",
                                 "--header-insertion=never",
                                 "--completion-style=detailed",
-                                "--function-arg-placeholders",
+                                "--function-arg-placeholders=1",
                                 "--include-ineligible-results",
                                 "--limit-results=1000",
                                 "--limit-references=10000",
@@ -39,7 +38,11 @@ return {
                                 clangdFileStatus = true,
                             },
                             root_markers = { "compile_commands.json", ".clangd", ".clang-tidy", ".clang-format", "compile_flags.txt", "configure.ac", ".git" },
-                        })
+                        }
+
+                    mason.setup()
+                    if vim.fn.has("nvim-0.11") == 1 then
+                        vim.lsp.config("clangd", clangd_opts)
                         vim.lsp.config("lua_ls", {
                             settings = {
                                 Lua = {
@@ -56,6 +59,8 @@ return {
                                 }
                             }
                         })
+                    else
+                        require("lspconfig").clangd.setup(clangd_opts)
                     end
 
                 end,
