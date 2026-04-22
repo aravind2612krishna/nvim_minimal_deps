@@ -262,7 +262,7 @@ if vim.g.neovide then
     vim.g.neovide_light_radius = 5
 end
 
-if vim.fn.has("nvim-0.11") == 1 then
+if vim.fn.has("nvim-0.12") == 1 then
     require("vim._core.ui2").enable {
         enable = true,
         msg = { -- Options related to the message module.
