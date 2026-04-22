@@ -4,14 +4,8 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        dependencies = {
-            {
-                "nvim-treesitter/nvim-treesitter-textobjects",
-                lazy = true
-            },
-        },
         main = "nvim-treesitter.config",
-        lazy = vim.fn.argc(-1) == 0, -- load treesitter immediately when opening a file from the cmdline
+        lazy = false, -- ensure treesitter loads immediately for debugging
         cmd = {
             "TSBufDisable",
             "TSBufEnable",
@@ -45,20 +39,6 @@ return {
             opts.incremental_selection = { enable = true }
             opts.indent = { enable = true }
             opts.folding = { enable = true }
-            opts.textobjects = {
-                select = {
-                    enable = true,
-                    lookahead = true,
-                    keymaps = {
-                        ["ac"] = { query = "@class.outer", desc = "around class" },
-                        ["ic"] = { query = "@class.inner", desc = "inside class" },
-                        ["af"] = { query = "@function.outer", desc = "around function " },
-                        ["if"] = { query = "@function.inner", desc = "inside function " },
-                        ["aa"] = { query = "@parameter.outer", desc = "around argument" },
-                        ["ia"] = { query = "@parameter.inner", desc = "inside argument" },
-                    },
-                },
-            }
             -- list like portions of a table cannot be merged naturally and require the user to merge it manually
             -- check to make sure the key exists
             if not opts.ensure_installed then opts.ensure_installed = {} end
@@ -76,4 +56,86 @@ return {
             -- Setup autocmds for folding
         end
     },
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        branch = "main",
+        keys = {
+            {
+                "aa",
+                function()
+                    require "nvim-treesitter-textobjects.select".select_textobject("@parameter.outer", "textobjects")
+                end,
+                mode = { "x", "o" },
+                desc = "Select outer parameter textobject"
+            },
+            {
+                "ia",
+                function()
+                    require "nvim-treesitter-textobjects.select".select_textobject("@parameter.inner", "textobjects")
+                end,
+                mode = { "x", "o" },
+                desc = "Select inner parameter textobject"
+            },
+            {
+                "af",
+                function()
+                    require "nvim-treesitter-textobjects.select".select_textobject("@function.outer", "textobjects")
+                end,
+                mode = { "x", "o" },
+                desc = "Select outer function textobject"
+            },
+            {
+                "if",
+                function()
+                    require "nvim-treesitter-textobjects.select".select_textobject("@function.inner", "textobjects")
+                end,
+                mode = { "x", "o" },
+                desc = "Select inner function textobject"
+            },
+            {
+                "ac",
+                function()
+                    require "nvim-treesitter-textobjects.select".select_textobject("@class.outer", "textobjects")
+                end,
+                mode = { "x", "o" },
+                desc = "Select outer class textobject"
+            },
+            {
+                "ic",
+                function()
+                    require "nvim-treesitter-textobjects.select".select_textobject("@class.inner", "textobjects")
+                end,
+                mode = { "x", "o" },
+                desc = "Select inner class textobject"
+            },
+            {
+                "as",
+                function()
+                    require "nvim-treesitter-textobjects.select".select_textobject("@local.scope", "locals")
+                end,
+                mode = { "x", "o" },
+                desc = "Select local scope textobject"
+            },
+        },
+        init = function()
+            -- Disable entire built-in ftplugin mappings to avoid conflicts.
+            -- See https://github.com/neovim/neovim/tree/master/runtime/ftplugin for built-in ftplugins.
+            -- vim.g.no_plugin_maps = true
+
+            -- Or, disable per filetype (add as you like)
+            vim.g.no_python_maps = true
+            -- vim.g.no_ruby_maps = true
+            -- vim.g.no_rust_maps = true
+            -- vim.g.no_go_maps = true
+        end,
+        config = function()
+            require("nvim-treesitter-textobjects").setup {
+                select = {
+                    -- Automatically jump forward to textobj, similar to targets.vim
+                    lookahead = true,
+                    include_surrounding_whitespace = false,
+                },
+            }
+        end,
+    }
 }

@@ -1,6 +1,7 @@
 return {
     {
         "ldelossa/litee-calltree.nvim",
+        enabled = false,
         dependencies = {
             {
                 "ldelossa/litee.nvim",

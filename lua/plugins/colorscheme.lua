@@ -8,20 +8,23 @@ return {
       config = function()
         vim.o.background = "light"
         vim.cmd("colorscheme mfd")
+        vim.cmd [[hi! link @lsp.type.property SpecialComment]]
       end,
     },
     {
         "oskarnurm/koda.nvim",
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
+        enabled = true,
         config = function()
             require("koda").setup({
                 styles = {
                     comments = { italic = true },
-                    -- keywords = { italic = true }
+                    -- keywords = { standout = true }
                 }
             })
             vim.cmd("colorscheme koda")
+            vim.cmd [[hi! link @lsp.type.property @comment.todo]]
         end,
     },
     {

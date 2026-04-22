@@ -1,5 +1,28 @@
 return{
     {
+        'kontura/trails.nvim',
+        dependencies = { 'neovim/nvim-lspconfig' },
+        event = "VeryLazy",
+        config = true,
+        keys = {
+            { -- lazy style key map
+                -- Choose your own keys, this works for me
+                "<leader>si",
+                function ()
+                    vim.lsp.buf.incoming_calls()
+                end,
+                desc = "LSP: [S]earch [I]ncoming Calls",
+            },
+            {
+                "<leader>so",
+                function ()
+                    vim.lsp.buf.outgoing_calls()
+                end,
+                desc = "LSP: [S]earch [O]utgoing Calls",
+            },
+        },
+    },
+    {
         "bassamsdata/namu.nvim",
         cmd = "Namu",
         opts = {
@@ -9,7 +32,7 @@ return{
     },
     {
         "retran/meow.yarn.nvim",
-        enabled = true,
+        enabled = false,
         dependencies = { "MunifTanjim/nui.nvim" },
         cmd = "MeowYarn",
         keys = {
@@ -26,6 +49,7 @@ return{
     },
     {
         'lafarr/hierarchy.nvim',
+        enabled = false,
         cmd = "FunctionReferences",
         config = function(_, opts)
             require('hierarchy').setup(opts)

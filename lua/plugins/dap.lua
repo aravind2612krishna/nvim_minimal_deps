@@ -8,7 +8,16 @@ return {
                 config = function()
                     require("mason-nvim-dap").setup({
                         ensure_installed = { "python", "delve" },
-                        handlers = {},
+                        handlers = {
+                            python = function (config)
+                                config.adapters = {
+                                    type = 'executable',
+                                    command = '/work/repos/third_party/python/python3.10.18/linux64/bin/python3',
+                                    args = { '-m', 'debugpy.adapter' },
+                                }
+                                require('mason-nvim-dap').default_setup(config)
+                            end,
+                        },
                     })
                 end,
             },

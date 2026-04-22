@@ -17,12 +17,12 @@ return {
     cmd="Copilot",
     opts = {
       panel = {
-        enabled = true,
+        enabled = false,
         auto_refresh = false,
         keymap = {
           jump_prev = "[[",
           jump_next = "]]",
-          accept = "<M-CR>",
+          -- accept = "<M-CR>",
           refresh = "gr",
           open = "<C-CR>",
         },
