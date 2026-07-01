@@ -20,9 +20,13 @@ return {
             require('incline').setup({
                 window = {
                     padding = 0,
-                    margin = { horizontal = 0 },
+                    margin = { 
+                        horizontal = 0,
+                        vertical = 1,
+                    },
                     placement = {
-                        vertical = "bottom"
+                        vertical = "bottom",
+                        horizontal = "left"
                     }
                 },
                 hide = {

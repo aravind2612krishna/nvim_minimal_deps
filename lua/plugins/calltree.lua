@@ -95,4 +95,22 @@ return{
             require("telescope").load_extension("hierarchy")
         end,
     },
+    {
+        "error311/wayfinder.nvim",
+        cmd = {"Wayfinder"},
+        keys = {
+            {
+                "<leader>wf", "<Plug>(WayfinderOpen)", { desc = "Wayfinder" },
+            }
+        },
+        opts = {
+            layout = {
+                width = 0.88,
+                height = 0.72,
+            },
+        },
+        config = function(_, opts)
+            require("wayfinder").setup(opts)
+        end
+    },
 }

@@ -6,9 +6,27 @@ return {
       priority = 1000,
       enabled = false,
       config = function()
-        vim.o.background = "light"
+        -- vim.o.background = "light"
         vim.cmd("colorscheme mfd")
         vim.cmd [[hi! link @lsp.type.property SpecialComment]]
+        local function darken(hex, amount) -- amount: 0.0..1.0
+            local r = tonumber(hex:sub(2, 3), 16)
+            local g = tonumber(hex:sub(4, 5), 16)
+            local b = tonumber(hex:sub(6, 7), 16)
+            r = math.floor(r * (1 - amount))
+            g = math.floor(g * (1 - amount))
+            b = math.floor(b * (1 - amount))
+            return string.format("#%02x%02x%02x", r, g, b)
+        end
+
+        local sc = vim.api.nvim_get_hl(0, { name = "SpecialComment", link = false })
+        local fg = sc.fg and string.format("#%06x", sc.fg) or "#808080" -- fallback
+
+        vim.api.nvim_set_hl(0, "specialcommentbolddark", {
+            link = "specialcomment",
+            fg = darken(fg, 0.9), -- 60% darker
+            bold = true,
+        })
       end,
     },
     {
@@ -24,7 +42,12 @@ return {
                 }
             })
             vim.cmd("colorscheme koda")
-            vim.cmd [[hi! link @lsp.type.property @comment.todo]]
+
+            vim.api.nvim_set_hl(0, "@lsp.type.property", {
+                link = "@lsp.type.property",
+                italic = true,
+            })
+            -- vim.cmd [[hi! link @lsp.type.property @comment.todo]]
         end,
     },
     {

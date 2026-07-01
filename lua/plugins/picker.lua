@@ -54,14 +54,14 @@ return {
         opts = {},
         keys = {
             {
-                "<leader>ff",
+                "<C-p>",
                 function()
                     require("fzf-lua").global()
                 end,
                 desc = "Fzf global"
             },
             {
-                "<leader>fs",
+                "<leader>fzs",
                 function()
                     require("fzf-lua").lsp_live_workspace_symbols()
                 end,
@@ -71,50 +71,33 @@ return {
     },
     {
         'dmtrKovalenko/fff.nvim',
-        enabled = false,
         build = function()
-            -- this will download prebuild binary or try to use existing rustup toolchain to build from source
-            -- (if you are using lazy you can use gb for rebuilding a plugin if needed)
+            -- downloads a prebuilt binary or falls back to cargo build
             require("fff.download").download_or_build_binary()
         end,
-        -- if you are using nixos
+        -- for nixos:
         -- build = "nix run .#release",
-        opts = {                     -- (optional)
+        opts = {
             debug = {
-                enabled = false,     -- we expect your collaboration at least during the beta
-                show_scores = false, -- to help us optimize the scoring system, feel free to share your scores!
-            },
-            keymaps = {
-                close = '<Esc>',
-                select = '<CR>',
-                select_split = '<C-s>',
-                select_vsplit = '<C-v>',
-                select_tab = '<C-t>',
-                move_up = { '<Up>', '<C-k>' },
-                move_down = { '<Down>', '<C-j>' },
-                preview_scroll_up = '<C-u>',
-                preview_scroll_down = '<C-d>',
-                toggle_debug = '<F2>',
-            },
-            logging = {
                 enabled = true,
-                log_file = vim.fn.stdpath('log') .. '/fff.log',
-                log_level = 'error',
-            },
-            preview = {
-                enabled = false,
+                show_scores = true,
             },
         },
-        -- No need to lazy-load with lazy.nvim.
-        -- This plugin initializes itself lazily.
-        lazy = false,
+        lazy = false, -- the plugin lazy-initialises itself
         keys = {
+            { "<leader>ff", function() require('fff').find_files() end, desc = 'FFFind files' },
+            { "<leader>fg", function() require('fff').live_grep() end,  desc = 'LiFFFe grep' },
             {
-                "ff", -- try it if you didn't it is a banger keybinding for a picker
-                function() require('fff').find_files() end,
-                desc = 'FFFind files',
-            }
-        }
+                "<leader>fz",
+                function() require('fff').live_grep({ grep = { modes = { 'fuzzy', 'plain' } } }) end,
+                desc = 'Live fffuzy grep',
+            },
+            {
+                "<leader>fc",
+                function() require('fff').live_grep({ query = vim.fn.expand("<cword>") }) end,
+                desc = 'Search current word',
+            },
+        },
     },
     {
         "echasnovski/mini.pick",

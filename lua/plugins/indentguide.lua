@@ -1,7 +1,7 @@
 return {
     {
         'echasnovski/mini.indentscope',
-        enabled = false,
+        enabled = true,
         event = "BufEnter",
         version = '*',
         config = function()
@@ -10,7 +10,7 @@ return {
     },
     {
         "nvimdev/indentmini.nvim",
-        enabled = true,
+        enabled = false,
         event = "BufEnter",
         config = function ()
             require("indentmini").setup({ only_current=true })

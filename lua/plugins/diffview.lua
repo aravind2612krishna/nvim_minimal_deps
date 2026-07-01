@@ -1,6 +1,6 @@
 return {
     {
-        "sindrets/diffview.nvim",
+        "dlyongemallo/diffview-plus.nvim",
         cmd = { "DiffviewOpen", "DiffviewFileHistory" },
         opts = {
             view = {
@@ -37,5 +37,36 @@ return {
         config = function()
             require("gitlineage").setup({ keymap = "<leader>gh" })
         end
+    },
+    {
+        "barrettruth/diffs.nvim",
+        cmd = "Diff",
+        event = "VeryLazy",
+        init = function()
+            vim.g.diffs = {
+                integrations = {
+                    fugitive = true,
+                    neogit = true,
+                    neojj = true,
+                    gitsigns = true,
+                },
+                conflict = {
+                    enabled = true,
+                    disable_diagnostics = true,
+                    show_virtual_text = true,
+                    show_actions = true,
+                    keymaps = {
+                        ours = '<leader>co',
+                        theirs = '<leader>ct',
+                        both = '<leader>cb',
+                        none = '<leader>c0',
+                        next = ']x',
+                        prev = '[x',
+                    },
+                },
+            }
+
+        end,
+
     }
 }

@@ -62,4 +62,11 @@ return {
             map({'o', 'x'}, 'ih', gitsigns.select_hunk)
         end
     },
+    {
+        "CoreyKaylor/diffbandit.nvim",
+        cmd = "DiffBanditGit",
+        config = function()
+            require("diffbandit").setup()
+        end,
+    }
 }

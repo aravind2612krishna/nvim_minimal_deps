@@ -1,7 +1,8 @@
 return {
     "olimorris/codecompanion.nvim",
+    enabled = false,
     version = "^19.0.0",
-    cmd = { "CodeCompanionChat", "CodeCompanionInline", "CodeCompanionCmd", "CodeCompanionBackground" },
+    cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionInline", "CodeCompanionCmd", "CodeCompanionBackground" },
     opts = {
         chat = {
             -- You can specify an adapter by name and model (both ACP and HTTP)

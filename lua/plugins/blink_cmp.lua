@@ -100,15 +100,18 @@ MEnabled = {
           snippets = { score_offset = -3 },
         },
       },
-      -- signature = {
-      --   enabled = true,
-      -- },
+      signature = {
+        enabled = true,
+        window = {
+            show_documentation = false,
+        },
+      },
 
       -- experimental auto-brackets support
       -- accept = { auto_brackets = { enabled = true } }
 
       -- experimental signature help support
-      -- trigger = { signature_help = { enabled = true } }
+      -- trigger = { signature_help = { enabled = true } },
       snippets = {
         score_offset = -10,
       },

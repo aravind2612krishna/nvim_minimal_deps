@@ -1,7 +1,7 @@
 return {
     {
-        -- dir = "/home/aravk/sources/aravk_nvim_utils",
-        "aravind2612krishna/aravk_nvim_utils",
+        dir = "/home/z0054zvv/sources/aravk_nvim_utils",
+        -- "aravind2612krishna/aravk_nvim_utils",
         dependencies = {
             "linrongbin16/gitlinker.nvim",
             "nvim-treesitter/nvim-treesitter",
@@ -31,6 +31,7 @@ return {
         config = function(_, opts)
             require("aravk_nvim_utils.smartcodecopy").setup(opts)
             -- require("aravk_nvim_utils.searchinscope").setup()
+            require("aravk_nvim_utils.gdb_viewer").setup()
         end
   },
   -- {

@@ -20,7 +20,7 @@ return {
                                 "clangd",
                                 "--query-driver=/usr/bin/g++",
                                 "--background-index",
-                                "--background-index-priority=background",
+                                "--background-index-priority=low",
                                 "-j=12",
                                 "--log=info",
                                 "--pretty",
@@ -38,7 +38,7 @@ return {
                                 completeUnimported = true,
                                 clangdFileStatus = true,
                             },
-                            root_markers = { "compile_commands.json", ".clangd", ".clang-tidy", ".clang-format", "compile_flags.txt", "configure.ac", ".git" },
+                            root_markers = { "compile_commands.json" },
                         }
 
                     mason.setup()

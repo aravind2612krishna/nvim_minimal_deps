@@ -33,7 +33,7 @@ vim.opt.cindent = true
 vim.opt.completeopt = { "menu", "menuone", "noinsert", "popup" }
 vim.opt.clipboard = "unnamedplus"
 vim.opt.diffopt = "context:99999"
-vim.opt.autoread = false
+vim.opt.autoread = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.lazyredraw = true
@@ -48,6 +48,7 @@ vim.opt.clipboard = "unnamedplus"                            -- clipboard to vim
 vim.opt.shortmess:append("c")
 vim.opt.diffopt = { "context:99999", "filler", "algorithm:patience" }
 vim.opt.list = true                                    -- Show whitespace characters
+vim.opt.listchars = { tab = "»·", trail = "·", extends = "»", precedes = "«", nbsp = "␣", eol = "↲", space = "·" }
 vim.opt.scrolloff = 4                                  -- 4 lines minimum above or below cursor
 vim.opt.inccommand = "nosplit"                         -- Shows the effects of a command incrementally in the buffer
 vim.opt.splitright = true
@@ -146,7 +147,7 @@ vim.keymap.set("n", "]e", function() vim.diagnostic.jump({count=1, wrap=false, s
 vim.keymap.set("n", "[e", function() vim.diagnostic.jump({count=-1, wrap=false, severity=vim.diagnostic.severity.ERROR}) end, {remap = true, desc = "Next error"})
 vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, {remap = true, desc = "Go to definition"})
 vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, {remap = true, desc = "Go to declaration"})
-
+vim.keymap.set("x", "/", "<Esc>/\\%V")
 
 -- maps relative to current file
 vim.keymap.set(
@@ -234,7 +235,7 @@ if vim.g.neovide then
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor or 1
     vim.g.neovide_fullscreen = true
     vim.g.neovide_remember_window_size = false
-    -- vim.o.guifont = "JetBrainsMono Nerd Font Mono:h12"
+    vim.o.guifont = "JetBrainsMono Nerd Font Mono:h10"
 
     -- Scale factor
     local change_scale_factor = function(delta)
@@ -282,7 +283,7 @@ if vim.fn.has("nvim-0.12") == 1 then
             msg = {   -- Options related to msg window.
                 height = 0.5, -- Maximum height.
                 width = 0.5, -- Maximum width.
-                timeout = 2000, -- Time a message is visible in the message window.
+                timeout = 3000, -- Time a message is visible in the message window.
             },
             pager = { -- Options related to message window.
                 height = 0.5, -- Maximum height.
@@ -290,3 +291,4 @@ if vim.fn.has("nvim-0.12") == 1 then
         },
     }
 end
+
