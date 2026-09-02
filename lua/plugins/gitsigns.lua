@@ -1,8 +1,12 @@
 return {
     {
         "lewis6991/gitsigns.nvim",
-        event="BufEnter",
+        -- event="BufEnter",
+        lazy = true,
+        cmd = "Gitsigns",
         opts = {
+            sign_priority = 20,
+            update_debounce = 300,
             on_attach = function(bufnr)
                 local gitsigns = require('gitsigns')
 

@@ -1,7 +1,7 @@
 return {
     {
         'echasnovski/mini.indentscope',
-        enabled = true,
+        enabled = false,
         event = "BufEnter",
         version = '*',
         config = function()

@@ -24,7 +24,7 @@ vim.g.maplocalleader = "\\"
 vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.spell = false
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "yes:2"
 vim.opt.wrap = false
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
@@ -290,5 +290,6 @@ if vim.fn.has("nvim-0.12") == 1 then
             },
         },
     }
-end
 
+    -- vim.opt.statuscolumn = "%l%=%s%#WinSeparator#│%*"
+end
