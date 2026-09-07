@@ -1,7 +1,7 @@
 return {
     {
-        -- dir = "/home/z0054zvv/sources/aravk_nvim_utils",
-        "aravind2612krishna/aravk_nvim_utils",
+        dir = "/home/z0054zvv/sources/aravk_nvim_utils",
+        -- "aravind2612krishna/aravk_nvim_utils",
         dependencies = {
             "linrongbin16/gitlinker.nvim",
             "nvim-treesitter/nvim-treesitter",

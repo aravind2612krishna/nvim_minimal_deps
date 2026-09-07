@@ -131,6 +131,20 @@ return {
     },
     {
         "folke/sidekick.nvim",
+        dependencies = {
+            {
+                "Cannon07/code-preview.nvim",
+                config = function()
+                    require("code-preview").setup({
+                        diff = {
+                            layout  = "inline",   -- unified GitHub-style diff (the strategic default)
+                            layouts = { opencode = "tab" }, -- override the layout per agent, to taste
+                        },
+                        neo_tree = { reveal_root = "git" }, -- reveal from the git root instead of cwd
+                    })
+                end,
+            },
+        },
         opts = {
             -- add any options here
             cli = {
@@ -205,5 +219,19 @@ return {
                 desc = "Sidekick Toggle Claude",
             },
         },
+    },
+    {
+        "linw1995/nvim-mcp",
+        event = "VeryLazy",
+        build = "cargo install --path .",
+        opts = {},
+    },
+    {
+        "ploMP4/draven.nvim",
+        cmd = { "Draven", "DravenToggle", "DravenStatus" },
+        keys = {
+            { "<leader>ro", "<cmd>Draven<cr>", desc = "[R]eview [O]pen" },
+        },
+        opts = {},
     }
 }

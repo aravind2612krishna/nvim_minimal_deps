@@ -1,5 +1,53 @@
 return {
--- lazy.nvim
+    -- lazy.nvim
+    {
+        "tanmaymanojgandhi/circadia",
+        lazy = false,
+        priority = 1000,
+        enabled = false,
+        init = function(plugin)
+            local port_path = vim.fs.joinpath(plugin.dir, "ports", "neovim")
+            local lua_path = vim.fs.joinpath(port_path, "lua", "?.lua")
+            local lua_init = vim.fs.joinpath(port_path, "lua", "?", "init.lua")
+
+            -- Register Lua paths
+            package.path = package.path .. ";" .. lua_path .. ";" .. lua_init
+
+            -- Directory to expose colorschemes to Neovim's picker
+            local colors_dir = vim.fs.joinpath(vim.fn.stdpath("data"), "circadia_colors", "colors")
+            vim.fn.mkdir(colors_dir, "p")
+
+            local variants = {
+                ["circadia-dark"] = [[
+          vim.o.background = "dark"
+          require("circadia").setup()
+        ]],
+                ["circadia-light"] = [[
+          vim.o.background = "light"
+          require("circadia").setup( { mode = "light"})
+        ]],
+            }
+
+            for name, code in pairs(variants) do
+                local file = vim.fs.joinpath(colors_dir, name .. ".lua")
+                local f = io.open(file, "w")
+                if f then
+                    f:write(code)
+                    f:close()
+                end
+            end
+
+            -- Add directory to runtime path
+            vim.opt.rtp:prepend(vim.fs.joinpath(vim.fn.stdpath("data"), "circadia_colors"))
+        end,
+        config = function()
+            vim.opt.rtp:prepend(vim.fn.stdpath("data") .. "/lazy/circadia/ports/neovim")
+
+            vim.o.background = "light"
+            require("circadia").setup({ mode = "light" })
+            vim.cmd("colorscheme circadia-light")
+        end,
+    },
     {
       'kungfusheep/mfd.nvim',
       lazy = false,
@@ -33,7 +81,7 @@ return {
         "oskarnurm/koda.nvim",
         lazy = false, -- make sure we load this during startup if it is your main colorscheme
         priority = 1000, -- make sure to load this before all the other start plugins
-        enabled = true,
+        enabled = false,
         config = function()
             require("koda").setup({
                 styles = {
@@ -52,7 +100,7 @@ return {
     },
     {
         "wuelnerdotexe/vim-enfocado",
-        enabled = false,
+        enabled = true,
         lazy = false,
         priority = 1000,
         config = function(_, _)
