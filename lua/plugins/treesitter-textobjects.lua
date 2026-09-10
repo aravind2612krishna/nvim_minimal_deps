@@ -32,9 +32,10 @@ return {
         },
         config = function (_, opts)
             require("nvim-treesitter-textobjects").setup(opts)
-            vim.keymap.set({ "n", "x", "o" }, "]m", function()
-                require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
-            end)
+            -- ]m/[m (function identifier) for c/cpp are set in
+            -- ftplugin/c.lua and ftplugin/cpp.lua via utils/func_nav.lua,
+            -- which avoids the function_declarator's parameter list.
+            -- ]M/[M (function end) stay global here.
             vim.keymap.set({ "n", "x", "o" }, "]]", function()
                 require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
             end)
@@ -45,9 +46,6 @@ return {
                 require("nvim-treesitter-textobjects.move").goto_next_end("@class.outer", "textobjects")
             end)
 
-            vim.keymap.set({ "n", "x", "o" }, "[m", function()
-                require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
-            end)
             vim.keymap.set({ "n", "x", "o" }, "[[", function()
                 require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
             end)
@@ -61,4 +59,3 @@ return {
         end
     },
 }
-

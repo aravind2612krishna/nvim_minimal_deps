@@ -23,6 +23,53 @@ return {
             },
         },
         lazy = true,
+        config = function()
+            local dap = require("dap")
+
+            -- GDB 14+ includes a Debug Adapter Protocol implementation.
+            dap.adapters.cpp = {
+                type = "executable",
+                command = "gdb",
+                args = { "-i", "dap" },
+            }
+
+            local function most_recent_process()
+                local query = vim.fn.input("Process name: ", "hwx")
+                if query == "" then
+                    return nil
+                end
+
+                local processes = vim.fn.systemlist({ "ps", "-eo", "pid=,args=", "--sort=-start_time" })
+                for _, process in ipairs(processes) do
+                    local pid, command = process:match("^%s*(%d+)%s+(.+)$")
+                    if pid and command:find(query, 1, true) then
+                        return tonumber(pid)
+                    end
+                end
+
+                vim.notify(("No running process matches %q"):format(query), vim.log.levels.ERROR)
+                return nil
+            end
+
+            dap.configurations.cpp = {
+                {
+                    name = "Launch executable",
+                    type = "cpp",
+                    request = "launch",
+                    program = function()
+                        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopAtBeginningOfMainSubprogram = true,
+                },
+                {
+                    name = "Attach to most recent process",
+                    type = "cpp",
+                    request = "attach",
+                    pid = most_recent_process,
+                },
+            }
+        end,
         -- Copied from LazyVim/lua/lazyvim/plugins/extras/dap/core.lua and
         -- modified.
         keys = {
@@ -150,5 +197,12 @@ return {
                 end,
             },
         },
+    },
+    {
+        "igorlfs/nvim-dap-view",
+        enabled = false,
+        version = vim.version.range("1.*"),
+        cmd = "DapViewOpen",
+        config = true,
     },
 }

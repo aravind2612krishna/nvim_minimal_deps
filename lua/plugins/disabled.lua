@@ -16,7 +16,6 @@ return {
   { "ray-x/navigator.lua", enabled = false },
   { "nvimdev/lspsaga.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
-  { "stevearc/aerial.nvim", enabled = false },
   { "rcarriga/cmp-dap", enabled = false },
   { "OXY2DEV/markview.nvim", enabled = false },
   -- { "hrsh7th/nvim-cmp", enabled = false },

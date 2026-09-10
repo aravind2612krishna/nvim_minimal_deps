@@ -137,7 +137,7 @@ return {
                 config = function()
                     require("code-preview").setup({
                         diff = {
-                            layout  = "inline",   -- unified GitHub-style diff (the strategic default)
+                            layout  = "tab",   -- unified GitHub-style diff (the strategic default)
                             layouts = { opencode = "tab" }, -- override the layout per agent, to taste
                         },
                         neo_tree = { reveal_root = "git" }, -- reveal from the git root instead of cwd

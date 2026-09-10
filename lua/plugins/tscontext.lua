@@ -1,7 +1,10 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter-context",
-        dependencies = "nvim-treesitter/nvim-treesitter",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            -- "andersevenrud/nvim_context_vt",
+        },
         cmd = "TSContext",
         opts = {
             throttle = true,         -- Throttles plugin updates (may improve performance)
@@ -43,7 +46,7 @@ return {
     },
     {
         "andersevenrud/nvim_context_vt",
-        ft = { "cpp", "lua", "python", "rust", "go", "java", "javascript", "typescript" },
+        -- ft = { "cpp", "lua", "python", "rust", "go", "java", "javascript", "typescript" },
         config = function()
             local context_vt = require('nvim_context_vt')
             local context_vt_utils = require('nvim_context_vt.utils')
